@@ -2,6 +2,10 @@ const express = require("express");
 const app = express();
 const router = require("./router/auth-router");
 
+// Middleware
+
+app.use(express.json());
+
 // This is an REST api
 
 app.use("/api/auth", router);

@@ -10,7 +10,7 @@ router.route("/").get(authcontrollers.home);
 
 // Now the registration part
 
-router.route("/register").get(authcontrollers.register);
+router.route("/register").post(authcontrollers.register);
 
 // now exports
 
