@@ -8,9 +8,9 @@ const router = require("./router/auth-router");
 const { connect } = require("mongoose");
 
 const connectDb = require("./utils/db");
-// Middleware
 
-app.use(express.json());
+// Middleware
+app.use(express.json()); //(to use a raw data in postman)
 
 // This is an REST api
 
