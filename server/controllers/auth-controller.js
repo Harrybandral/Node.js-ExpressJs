@@ -21,18 +21,22 @@ const register = async (req, res) => {
       return res.status(400).json({ msg: "email Already exist" });
     }
 
-    // const saltRound = 10;
-    // hash_password = await bcrypt.hash(password, saltRound);
+    const saltRound = 10;
+    hash_password = await bcrypt.hash(password, saltRound);
 
     const userCreated = await User.create({
       username,
       email,
       phone,
-      // password: hash_password,
-      password,
+      password: hash_password,
+      // password,
     });
 
-    res.status(201).json({ userCreated });
+    res.status(201).json({
+      msg: "registration successful",
+      token: await userCreated.generateToken(),
+      userId: userCreated.id.toString(),
+    });
   } catch (error) {
     res.status(500).json("page not found");
   }
