@@ -42,4 +42,33 @@ const register = async (req, res) => {
   }
 };
 
-module.exports = { home, register };
+// User Login Logic
+
+const login = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    const userExist = await User.findOne({ email });
+    console.log(userExist);
+
+    if (!userExist) {
+      return res.status(400).json({ message: "Invalid Credentials" });
+    }
+
+    const user = await bcrypt.compare(password, userExist.password);
+
+    if (user) {
+      res.status(200).json({
+        msg: "login successful",
+        token: await userExist.generateToken(),
+        userId: userExist.id.toString(),
+      });
+    } else {
+      res.status(401).json({ message: "Invalid email or password" });
+    }
+  } catch (error) {
+    res.status(500).json("page not found");
+  }
+};
+
+module.exports = { home, register, login };
