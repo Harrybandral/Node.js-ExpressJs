@@ -1,4 +1,4 @@
-//  to use env files
+//  To use env files
 
 require("dotenv").config();
 
